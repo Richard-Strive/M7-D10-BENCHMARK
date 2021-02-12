@@ -7,6 +7,8 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import Current from "./CurrentForcast/Current";
+import Main from "./Main/Main";
 
 /**
  * CURRENT FORECAST 
@@ -27,7 +29,12 @@ function Home() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [currentFor, setCurrentFor] = useState();
-  const [days, setDays] = useState("");
+
+  const [loader, setLoader] = useState(true);
+
+  //-------------------//
+  const [historicalCall, setHistoricalCall] = useState([]);
+  const [days, setDays] = useState("3");
 
   const getWheter = async () => {
     try {
@@ -38,8 +45,9 @@ function Home() {
       if (response.ok) {
         console.log(response);
         const data = await response.json();
-        console.log(data);
+        console.log("I'm the current weather bitch--->", data);
         setData(data);
+        setLoader(false);
       }
     } catch (error) {
       console.log(error);
@@ -59,29 +67,29 @@ function Home() {
       if (response.ok) {
         console.log(response);
         const data = await response.json();
-        console.log(data);
+        console.log("Get current4cast--->", data);
         setCurrentFor(data);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  const getHistoriaclCall = async () => {
-    try {
-      const response = await fetch(
-        `https://https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${data.coord.lat}&lon=${data.coord.lon}&dt={time}&appid=f10ab2fb813b0bacacb830ce8476f281`
-      );
+  // const getHistoriaclCall = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${data.coord.lat}&lon=${data.coord.lon}&dt=${milliSecond}&appid=f10ab2fb813b0bacacb830ce8476f281`
+  //     );
 
-      if (response.ok) {
-        console.log(response);
-        const data = await response.json();
-        console.log(data);
-        setCurrentFor(data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     if (response.ok) {
+  //       console.log(response);
+  //       const data = await response.json();
+  //       console.log("i'm history--->", data);
+  //       setHistoricalCall(data);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleSumbit = (e) => {
     e.preventDefault();
@@ -92,6 +100,7 @@ function Home() {
 
   useEffect(() => {
     getCurrentForcast();
+    // getHistoriaclCall();
   }, [data]);
 
   return (
@@ -100,25 +109,10 @@ function Home() {
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
           <Form inline onSubmit={(e) => handleSumbit(e)}>
             <FormControl
               type="text"
-              placeholder="Search"
+              placeholder="City name..."
               value={search}
               className="mr-sm-2"
               onChange={(e) => setSearch(e.target.value)}
@@ -129,6 +123,12 @@ function Home() {
           </Form>
         </Navbar.Collapse>
       </Navbar>
+      {loader ? (
+        <h1>Idiot type something and fetch...</h1>
+      ) : (
+        <Main data={data} />
+      )}
+      {loader ? <h1>...</h1> : <Current current={currentFor} />}
     </div>
   );
 }
