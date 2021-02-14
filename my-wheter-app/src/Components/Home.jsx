@@ -146,12 +146,18 @@ function Home() {
         setShowMain={setShowMain}
         setShowFor={setShowFor}
       />
-      <Current
-        showFor={showFor}
-        setLoader={setLoader}
-        setShowMain={setShowMain}
-        setShowFor={setShowFor}
-      />
+      {currentFor ? (
+        <Current
+          showFor={showFor}
+          currentFor={currentFor}
+          setLoader={setLoader}
+          showMain={showMain}
+          setShowMain={setShowMain}
+          setShowFor={setShowFor}
+        />
+      ) : (
+        <p>Start searching... :)</p>
+      )}
     </div>
   );
 }

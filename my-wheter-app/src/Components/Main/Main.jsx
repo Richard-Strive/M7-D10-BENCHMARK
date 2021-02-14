@@ -56,7 +56,7 @@ function Main({ data, loader, setLoader, setShowFor, showMain, setShowMain }) {
             onClick={() => setForCast()}
             className="the_w_b2"
           >
-            Click here for 7 day's weather Forecast
+            Click here for 7 day's Forecast
           </Button>
         </Card>
       )}
