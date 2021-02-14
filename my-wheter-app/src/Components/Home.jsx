@@ -42,7 +42,7 @@ function Home() {
   const getWheter = async () => {
     try {
       const response = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${search}&appid=f10ab2fb813b0bacacb830ce8476f281`
+        `http://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=f10ab2fb813b0bacacb830ce8476f281`
       );
 
       if (response.ok) {
@@ -64,7 +64,7 @@ function Home() {
   const getCurrentForcast = async () => {
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lon}&lon=${data.coord.lat}&appid=f10ab2fb813b0bacacb830ce8476f281`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${data.coord.lat}&lon=${data.coord.lon}&units=metric&exclude=minute,hourly&appid=f10ab2fb813b0bacacb830ce8476f281`
       );
 
       if (response.ok) {

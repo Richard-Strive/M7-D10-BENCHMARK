@@ -1,7 +1,8 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import moment from "moment";
 
 import "./Current.css";
 
@@ -22,34 +23,40 @@ function Current({ currentFor, showFor, setLoader, setShowMain, setShowFor }) {
           <div>
             <Card style={{ width: "100%" }} className="card_main">
               <Card.Body>
-                <Card.Title>{day.weather[0].description}</Card.Title>
                 <Card.Img
                   variant="top"
                   src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
                   style={{
-                    backgroundColor: "lightgray",
+                    backgroundColor: "rgb(201, 136, 201)",
                     heigth: "80px",
                     width: "80px",
                   }}
                   className="card_icon"
                 />
+                <Card.Title>{day.weather[0].description}</Card.Title>
+                {moment.unix(`${day.dt}`).format("dddd")}
+                <br />
                 Avg temperature day:
-                {Math.ceil(day.temp.day - 273.15)}°
+                {Math.ceil(day.temp.day)}°
                 <br />
                 Avg temperature morning:
-                {Math.ceil(day.temp.morn - 273.15)}°
+                {Math.ceil(day.temp.morn)}°
                 <br />
                 Avg temperature eve:
-                {Math.ceil(day.temp.eve - 273.15)}°
+                {Math.ceil(day.temp.eve)}°
                 <br />
                 Avg temperature night:
-                {(day.feels_like.day - 273.15).toFixed(1)}°
+                {Math.ceil(day.temp.night)}°
                 <br />
+                <small
+                  style={{ width: "10px" }}
+                  className="legend"
+                  onClick={() => restStart()}
+                >
+                  Search again
+                </small>
               </Card.Body>
             </Card>
-            <small className="legend" onClick={() => restStart()}>
-              Click here to check the weather of another country
-            </small>
           </div>
         ))}
       </Carousel>

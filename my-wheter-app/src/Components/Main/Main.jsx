@@ -36,13 +36,13 @@ function Main({ data, loader, setLoader, setShowFor, showMain, setShowMain }) {
             />
             <br />
             Avg temperature:
-            {Math.ceil(data.main.temp - 273.15)}°
+            {Math.ceil(data.main.temp)}°
             <br />
             MAX:
-            {Math.ceil(data.main.temp_max - 273.15)}°
+            {Math.ceil(data.main.temp_max)}°
             <br />
             MIN:
-            {Math.ceil(data.main.temp_min - 273.15)}°
+            {Math.ceil(data.main.temp_min)}°
           </Card.Body>
           <Button
             style={{ height: "20%", width: "34%", color: "" }}
