@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import Current from "./CurrentForcast/Current";
 import Main from "./Main/Main";
+import "./Home.css";
 
 /**
  * CURRENT FORECAST 
@@ -29,11 +30,13 @@ function Home() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [currentFor, setCurrentFor] = useState();
+  const [showFor, setShowFor] = useState(true);
 
   const [loader, setLoader] = useState(true);
+  const [showMain, setShowMain] = useState(true);
 
   //-------------------//
-  const [historicalCall, setHistoricalCall] = useState([]);
+
   const [days, setDays] = useState("3");
 
   const getWheter = async () => {
@@ -69,6 +72,7 @@ function Home() {
         const data = await response.json();
         console.log("Get current4cast--->", data);
         setCurrentFor(data);
+        setShowMain(!showMain);
       }
     } catch (error) {
       console.log(error);
@@ -95,42 +99,58 @@ function Home() {
     e.preventDefault();
 
     getWheter(e);
-    console.log("fuck");
+    console.log("it's working");
   };
 
   useEffect(() => {
     getCurrentForcast();
+
     // getHistoriaclCall();
   }, [data]);
 
   return (
-    <div>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+    <div className="container_main">
+      <h1 className="mt-3 text-center">
+        What's the weather like in your country?
+      </h1>
+      <Navbar
+        expand="lg"
+        className="the_nav"
+        style={{ top: `${loader ? "28%" : "-100%"}` }}
+      >
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Form inline onSubmit={(e) => handleSumbit(e)}>
+          <Form
+            inline
+            onSubmit={(e) => handleSumbit(e)}
+            className="the_form_input"
+          >
             <FormControl
               type="text"
               placeholder="City name..."
               value={search}
-              className="mr-sm-2"
+              className="mr-sm-2 w_input text-center"
               onChange={(e) => setSearch(e.target.value)}
             />
-            <Button type="submit" variant="outline-success">
+            <Button type="submit" className="the_main_button">
               Search
             </Button>
           </Form>
         </Navbar.Collapse>
       </Navbar>
-      {loader ? (
-        <h1>Idiot type something and fetch...</h1>
-      ) : (
-        <Main data={data} />
-      )}
-      {loader ? <h1>...</h1> : <Current current={currentFor} />}
+      <Main
+        data={loader ? [] : data}
+        loader={loader}
+        setLoader={setLoader}
+        showMain={showMain}
+        setShowMain={setShowMain}
+        setShowFor={setShowFor}
+      />
+      <Current showFor={showFor} />
     </div>
   );
 }
 
 export default Home;
+
+//currentFor={currentFor}

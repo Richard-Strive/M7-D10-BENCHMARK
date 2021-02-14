@@ -1,0 +1,48 @@
+.container_main {
+  background-color: lightblue;
+
+  background-color: #b9b9e0;
+  height: 102vh;
+  width: 100%;
+  margin-top: -10px;
+  position: relative;
+
+  overflow: hidden;
+}
+
+.the_nav {
+  position: absolute;
+
+  left: 30%;
+  transition: top 2s;
+  width: 450px;
+  height: 20%;
+  background-color: white;
+  opacity: 0.5;
+  border-radius: 20px;
+  transition: all 2s;
+}
+
+.the_nav:hover {
+  opacity: 0.9;
+}
+
+.w_input {
+  margin-left: 63px;
+}
+.w_input:focus {
+  border-color: yellow !important;
+}
+.the_main_button {
+  border-color: inherit !important;
+  background-color: rgb(201, 136, 201) !important;
+}
+.the_main_button:hover {
+  background-color: rgb(187, 93, 187) !important;
+}
+
+/*
+
+*
+
+*/

@@ -1,3 +1,8 @@
+* {
+  margin: 0px;
+  font-family: Chalkduster, fantasy;
+}
+
 .App {
   text-align: center;
   height: fit-content;

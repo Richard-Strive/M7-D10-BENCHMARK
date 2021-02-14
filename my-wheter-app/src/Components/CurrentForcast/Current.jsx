@@ -1,18 +1,23 @@
 import React from "react";
-import { Jumbotron, Container } from "react-bootstrap";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 import "./Current.css";
 
-function Current({ current }) {
+function Current({ currentFor, showFor }) {
   return (
-    <div className="current_container">
-      {current.daily.map((day) => (
-        <Jumbotron fluid>
-          <Container>
-            <h1>{day.weather[0].description}</h1>
-            Avg temp: <p>{Math.ceil(day.temp.day - 273.15)} C</p>
-          </Container>
-        </Jumbotron>
-      ))}
+    <div
+      className="current_container"
+      style={{ top: `${showFor ? "-100%" : "24%"}` }}
+    >
+      <Carousel className="my_carousel">
+        <div>
+          <img
+            src="https://source.unsplash.com/random"
+            style={{ height: "200px" }}
+          />
+          <p className="legend">Legend 1</p>
+        </div>
+      </Carousel>
     </div>
   );
 }
