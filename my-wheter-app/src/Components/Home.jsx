@@ -146,7 +146,12 @@ function Home() {
         setShowMain={setShowMain}
         setShowFor={setShowFor}
       />
-      <Current showFor={showFor} />
+      <Current
+        showFor={showFor}
+        setLoader={setLoader}
+        setShowMain={setShowMain}
+        setShowFor={setShowFor}
+      />
     </div>
   );
 }
